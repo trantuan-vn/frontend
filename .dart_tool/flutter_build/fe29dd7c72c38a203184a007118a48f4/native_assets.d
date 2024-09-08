@@ -1,0 +1,1 @@
+ /Users/cunkem/frontend/.dart_tool/flutter_build/fe29dd7c72c38a203184a007118a48f4/native_assets.yaml: 
