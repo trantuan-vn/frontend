@@ -4,15 +4,37 @@ import 'package:logger/logger.dart';
 import 'package:smartconsultor/core/log/app_bloc_server.dart';
 
 class LogManager {
-  static init(){
-    // ignore: prefer_const_constructors
-    Bloc.observer = AppBlocObserver();
+  static final Logger _logger = Logger(
+    level: Level.all,
+    printer: PrettyPrinter(
+      methodCount: 0,
+      errorMethodCount: 3,
+      lineLength: 80,
+      colors: kDebugMode,
+      printEmojis: true,
+      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+    ),
+  );
 
-    Logger.level = Level.all;
-    Logger.addLogListener((record) {
-      if (kDebugMode) {
-        print('${record.level.name}: ${record.time}: ${record.message}');
-      }
-    });    
+  static void init() {
+    Bloc.observer = const AppBlocObserver();
+    logInfo('LogManager initialized');
+  }
+
+  static void logInfo(String message) {
+    if (kDebugMode) _logger.i(message);
+  }
+
+  static void logDebug(String message) {
+    if (kDebugMode) _logger.d(message);
+  }
+
+  static void logWarning(String message) {
+    if (kDebugMode) _logger.w(message);
+  }
+
+  static void logError(String message,
+      {dynamic error, StackTrace? stackTrace}) {
+    if (kDebugMode) _logger.e(message, error: error, stackTrace: stackTrace);
   }
 }

@@ -4,7 +4,6 @@ part 'settings_box.g.dart';
 
 @HiveType(typeId: 1)
 class SettingsBox extends HiveObject {
-  
   static const String SETTINGS_BOX = 'settings';
 
   @HiveField(0)

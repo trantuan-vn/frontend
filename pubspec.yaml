@@ -27,6 +27,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.1.2
   hive_generator: ^2.0.1  
+  universal_html: ^2.0.0
   responsive_framework: ^1.1.1 
   flutter_dotenv: ^5.1.0
   parse_server_sdk: 
@@ -53,6 +54,5 @@ flutter:
     - development.env
     - production.env
     - images/ 
-
     
     

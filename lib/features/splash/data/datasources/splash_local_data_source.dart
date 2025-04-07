@@ -3,8 +3,6 @@ import 'package:smartconsultor/core/error/exceptions.dart';
 import 'package:smartconsultor/core/hive/boxes/user_box.dart';
 import 'package:smartconsultor/features/splash/data/models/splash_user_model.dart';
 
-
-
 abstract class SplashLocalDataSource {
   Future<SplashUserModel?> getLoggedInUser();
 }
@@ -13,12 +11,12 @@ class SplashLocalDataSourceImpl implements SplashLocalDataSource {
   @override
   Future<SplashUserModel?> getLoggedInUser() async {
     try {
-      await Hive.openBox(UserBox.USER_BOX);
-      var userBox = Hive.box(UserBox.USER_BOX);
-      if (userBox.isNotEmpty){
-        UserBox user=userBox.getAt(0);
+      var userBox = await Hive.openBox(UserBox.USER_BOX);
+
+      if (userBox.isNotEmpty) {
+        UserBox user = userBox.getAt(0);
         DateTime now = DateTime.now();
-        if (now.isAfter(user.refreshTokenExpiration)){
+        if (now.isAfter(user.refreshTokenExpiration)) {
           userBox.deleteAt(0);
           return null;
         }
@@ -42,8 +40,7 @@ class SplashLocalDataSourceImpl implements SplashLocalDataSource {
           refreshTokenExpiration: user.refreshTokenExpiration,
           encryptionKey: user.encryptionKey,
         );
-      }
-      else {
+      } else {
         return null;
       }
     } catch (e) {

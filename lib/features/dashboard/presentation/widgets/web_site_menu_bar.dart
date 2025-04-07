@@ -20,9 +20,7 @@ class WebsiteMenuBar extends StatelessWidget {
         children: <Widget>[
           const Padding(
               padding: EdgeInsets.only(right: 16),
-              child: Icon(Icons.menu, 
-              color: textPrimary, 
-              size: 28)),
+              child: Icon(Icons.menu, color: textPrimary, size: 28)),
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -38,7 +36,13 @@ class WebsiteMenuBar extends StatelessWidget {
           const Spacer(),
           ResponsiveVisibility(
             visible: false,
-            visibleConditions: [Condition.largerThan(name: MOBILE, value: const BoxConstraints(maxWidth: 600))],
+            visibleConditions: [
+              Condition.largerThan(
+                name: MOBILE,
+                value: MediaQuery.of(context).size.width >
+                    600, // So sánh chiều rộng màn hình
+              ),
+            ],
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
@@ -49,15 +53,20 @@ class WebsiteMenuBar extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 16,
                           color: navLinkColor,
-                          fontFamily: fontFamily
-                          )),
+                          fontFamily: fontFamily)),
                 ),
               ),
             ),
           ),
           ResponsiveVisibility(
             visible: false,
-            visibleConditions: [Condition.largerThan(name: MOBILE, value: const BoxConstraints(maxWidth: 600))],
+            visibleConditions: [
+              Condition.largerThan(
+                name: MOBILE,
+                value: MediaQuery.of(context).size.width >
+                    600, // Kiểm tra chiều rộng màn hình
+              ),
+            ],
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
@@ -68,15 +77,20 @@ class WebsiteMenuBar extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 16,
                           color: navLinkColor,
-                          fontFamily: fontFamily
-                          )),
+                          fontFamily: fontFamily)),
                 ),
               ),
             ),
           ),
           ResponsiveVisibility(
             visible: false,
-            visibleConditions: [Condition.largerThan(name: MOBILE, value: const BoxConstraints(maxWidth: 600))],
+            visibleConditions: [
+              Condition.largerThan(
+                name: MOBILE,
+                value: MediaQuery.of(context).size.width >
+                    600, // Kiểm tra nếu chiều rộng màn hình lớn hơn 600
+              ),
+            ],
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
@@ -87,14 +101,19 @@ class WebsiteMenuBar extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 16,
                             color: navLinkColor,
-                            fontFamily: fontFamily
-                            ))),
+                            fontFamily: fontFamily))),
               ),
             ),
           ),
           ResponsiveVisibility(
             visible: false,
-            visibleConditions: [Condition.largerThan(name: MOBILE, value: const BoxConstraints(maxWidth: 600))],
+            visibleConditions: [
+              Condition.largerThan(
+                name: MOBILE,
+                value: MediaQuery.of(context).size.width >
+                    600, // Kiểm tra nếu chiều rộng màn hình lớn hơn 600
+              ),
+            ],
             child: const MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Padding(
@@ -147,11 +166,18 @@ class WebsiteMenuBar extends StatelessWidget {
           ),
           ResponsiveVisibility(
             visible: false,
-            visibleConditions: [Condition.largerThan(name: MOBILE, value: const BoxConstraints(maxWidth: 600))],
+            visibleConditions: [
+              Condition.largerThan(
+                name: MOBILE,
+                value: MediaQuery.of(context).size.width >
+                    600, // Kiểm tra nếu chiều rộng màn hình lớn hơn 600
+              ),
+            ],
             child: Padding(
               padding: const EdgeInsets.only(left: 8, right: 0),
               child: TextButton(
-                onPressed: () => openUrl("https://flutter.dev/docs/get-started/install"),
+                onPressed: () =>
+                    openUrl("https://flutter.dev/docs/get-started/install"),
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(primary),
                     overlayColor: MaterialStateProperty.resolveWith<Color>(
