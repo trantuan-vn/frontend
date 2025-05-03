@@ -22,19 +22,19 @@ class LogManager {
   }
 
   static void logInfo(String message) {
-    if (kDebugMode) _logger.i(message);
+    _logger.i(message);
   }
 
   static void logDebug(String message) {
-    if (kDebugMode) _logger.d(message);
+    _logger.d(message);
   }
 
   static void logWarning(String message) {
-    if (kDebugMode) _logger.w(message);
+    _logger.w(message);
   }
 
   static void logError(String message,
       {dynamic error, StackTrace? stackTrace}) {
-    if (kDebugMode) _logger.e(message, error: error, stackTrace: stackTrace);
+    _logger.e(message, error: error, stackTrace: stackTrace);
   }
 }

@@ -17,15 +17,18 @@ class NetworkInfo implements INetworkInfo {
       var result = await _connectivity.checkConnectivity();
       return result != ConnectivityResult.none;
     } catch (e) {
-      // Handle exceptions if necessary
-      return false;
+      rethrow;
     }
   }
 
   @override
   Stream<bool> get onConnectivityChanged {
-    return _connectivity.onConnectivityChanged.map((result) {
-      return result != ConnectivityResult.none;
-    });
+    try {
+      return _connectivity.onConnectivityChanged.map((result) {
+        return result != ConnectivityResult.none;
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 }

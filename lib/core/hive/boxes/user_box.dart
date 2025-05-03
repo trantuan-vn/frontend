@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'user_box.g.dart'; // Đây là file tự động được tạo bởi Hive
+part 'user_box.g.dart'; // file sẽ được tạo bằng lệnh build_runner
 
 @HiveType(typeId: 2)
 class UserBox extends HiveObject {
@@ -22,38 +22,29 @@ class UserBox extends HiveObject {
   late String email;
 
   @HiveField(5)
-  late String phoneNumber;
-
-  @HiveField(6)
-  late DateTime birthDate;
-
-  @HiveField(7)
-  late String gender;
-
-  @HiveField(8)
-  late String country;
-
-  @HiveField(9)
-  late String address;
-
-  @HiveField(10)
   late List<String> roles;
 
-  @HiveField(11)
+  @HiveField(6)
   late bool emailVerified;
 
-  @HiveField(12)
-  late String avatarUrl;
-
-  @HiveField(13)
-  late List<String> recentDevices;
-
-  @HiveField(14)
+  @HiveField(7)
   late DateTime accessTokenExpiration;
 
-  @HiveField(15)
-  late DateTime refreshTokenExpiration;
+  @HiveField(8)
+  late int expiresIn;
 
-  @HiveField(16)
-  late String encryptionKey;
+  @HiveField(9)
+  late int refreshExpiresIn;
+
+  @HiveField(10)
+  late String tokenType;
+
+  @HiveField(11)
+  late int notBeforePolicy;
+
+  @HiveField(12)
+  late String sessionState;
+
+  @HiveField(13)
+  late String scope;
 }

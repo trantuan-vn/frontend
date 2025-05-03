@@ -4,6 +4,34 @@
 
 #include "flutter_window.h"
 #include "utils.h"
+#include <shlwapi.h>
+#pragma comment(lib, "shlwapi.lib")
+
+void RegisterCustomUriProtocol() {
+  HKEY hKey;
+  const wchar_t* protocol = L"com.example.smartconsultor";
+
+  // Kiểm tra xem key đã tồn tại chưa
+  if (RegOpenKeyExW(HKEY_CLASSES_ROOT, protocol, 0, KEY_READ, &hKey) != ERROR_SUCCESS) {
+    // Nếu chưa, tạo key
+    if (RegCreateKeyW(HKEY_CLASSES_ROOT, protocol, &hKey) == ERROR_SUCCESS) {
+      RegSetValueW(hKey, nullptr, REG_SZ, L"URL:My Flutter App Protocol", 0);
+      RegSetValueW(hKey, L"URL Protocol", REG_SZ, L"", 0);
+
+      HKEY commandKey;
+      if (RegCreateKeyW(hKey, L"shell\\open\\command", &commandKey) == ERROR_SUCCESS) {
+        WCHAR path[MAX_PATH];
+        GetModuleFileNameW(nullptr, path, MAX_PATH);
+        std::wstring command = L"\"" + std::wstring(path) + L"\" \"%1\"";
+        RegSetValueW(commandKey, nullptr, REG_SZ, command.c_str(), 0);
+        RegCloseKey(commandKey);
+      }
+
+      RegCloseKey(hKey);
+    }
+  }
+}
+
 
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
                       _In_ wchar_t *command_line, _In_ int show_command) {
@@ -16,6 +44,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   // Initialize COM, so that it is available for use in the library and/or
   // plugins.
   ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+
+  RegisterCustomUriProtocol();
 
   flutter::DartProject project(L"data");
 

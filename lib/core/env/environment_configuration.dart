@@ -1,29 +1,49 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-//import 'dart:io';
-//import 'package:path_provider/path_provider.dart';
-//import 'package:path/path.dart' as pathlib;
-//import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 class EnvironmentConfiguration {
-  static Future run() async {
-    //await dotenv.load(fileName: ".env");
-    bool isProduction =
-        const bool.fromEnvironment('dart.vm.product', defaultValue: false);
-    String envFileName = isProduction ? "production.env" : "development.env";
+  static final EnvironmentConfiguration _instance =
+      EnvironmentConfiguration._internal();
 
-    //Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    //String path=appDocumentsDirectory.path;
-    //String filePath = pathlib.join(path, envFileName);
-    await DotEnv().load(fileName: envFileName);
-    //final dotEnv = DotEnv();
-    // Initialize parse for consuming API service
-    // await Parse().initialize(
-    //   dotEnv.env['PARSE_APPLICATION_ID']!,
-    //   dotEnv.env['BASE_URL']!,
-    //   clientKey: dotEnv.env['PARSE_CLIENT_ID'],
-    //   masterKey: dotEnv.env['PARSE_MASTER_KEY'], // Required for Back4App and others
-    //   autoSendSessionId: true, // Required for authentication and ACL
-    //   debug: !isProduction,
-    // );
+  // Singleton factory
+  factory EnvironmentConfiguration() => _instance;
+
+  EnvironmentConfiguration._internal();
+
+  // Keycloak configuration variables
+  String keycloakIssuer = '';
+  String keycloakClientId = '';
+  String keycloakRedirectUri = '';
+  String keycloakRedirectUriWeb = '';
+  String keycloakScopes = '';
+  String keycloakAuthorizationEndpoint = '';
+  String keycloakTokenEndpoint = '';
+  String keycloakEndSessionEndpoint = '';
+  String keycloakUserinfoEndpoint = '';
+  String keycloakJwksUri = '';
+
+  // Initialize the configuration
+  Future<void> initialize() async {
+    final env = kReleaseMode
+        ? 'production'
+        : (kProfileMode ? 'staging' : 'development');
+
+    String envFileName = '$env.env';
+    final dotEnv = DotEnv();
+    await dotEnv.load(fileName: envFileName);
+
+    // Assign Keycloak configuration values from .env
+    keycloakIssuer = dotEnv.env['KEYCLOAK_ISSUER'] ?? '';
+    keycloakClientId = dotEnv.env['KEYCLOAK_CLIENT_ID'] ?? '';
+    keycloakRedirectUri = dotEnv.env['KEYCLOAK_REDIRECT_URI'] ?? '';
+    keycloakRedirectUriWeb = dotEnv.env['KEYCLOAK_REDIRECT_URI_WEB'] ?? '';
+    keycloakScopes = dotEnv.env['KEYCLOAK_SCOPES'] ?? '';
+    keycloakAuthorizationEndpoint =
+        dotEnv.env['KEYCLOAK_AUTHORIZATION_ENDPOINT'] ?? '';
+    keycloakTokenEndpoint = dotEnv.env['KEYCLOAK_TOKEN_ENDPOINT'] ?? '';
+    keycloakEndSessionEndpoint =
+        dotEnv.env['KEYCLOAK_END_SESSION_ENDPOINT'] ?? '';
+    keycloakUserinfoEndpoint = dotEnv.env['KEYCLOAK_USERINFO_ENDPOINT'] ?? '';
+    keycloakJwksUri = dotEnv.env['KEYCLOAK_JWKS_URI'] ?? '';
   }
 }

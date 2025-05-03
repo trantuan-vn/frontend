@@ -22,24 +22,21 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       ..refreshToken = fields[2] as String
       ..fullName = fields[3] as String
       ..email = fields[4] as String
-      ..phoneNumber = fields[5] as String
-      ..birthDate = fields[6] as DateTime
-      ..gender = fields[7] as String
-      ..country = fields[8] as String
-      ..address = fields[9] as String
-      ..roles = (fields[10] as List).cast<String>()
-      ..emailVerified = fields[11] as bool
-      ..avatarUrl = fields[12] as String
-      ..recentDevices = (fields[13] as List).cast<String>()
-      ..accessTokenExpiration = fields[14] as DateTime
-      ..refreshTokenExpiration = fields[15] as DateTime
-      ..encryptionKey = fields[16] as String;
+      ..roles = (fields[5] as List).cast<String>()
+      ..emailVerified = fields[6] as bool
+      ..accessTokenExpiration = fields[7] as DateTime
+      ..expiresIn = fields[8] as int
+      ..refreshExpiresIn = fields[9] as int
+      ..tokenType = fields[10] as String
+      ..notBeforePolicy = fields[11] as int
+      ..sessionState = fields[12] as String
+      ..scope = fields[13] as String;
   }
 
   @override
   void write(BinaryWriter writer, UserBox obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.userId)
       ..writeByte(1)
@@ -51,29 +48,23 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       ..writeByte(4)
       ..write(obj.email)
       ..writeByte(5)
-      ..write(obj.phoneNumber)
-      ..writeByte(6)
-      ..write(obj.birthDate)
-      ..writeByte(7)
-      ..write(obj.gender)
-      ..writeByte(8)
-      ..write(obj.country)
-      ..writeByte(9)
-      ..write(obj.address)
-      ..writeByte(10)
       ..write(obj.roles)
-      ..writeByte(11)
+      ..writeByte(6)
       ..write(obj.emailVerified)
-      ..writeByte(12)
-      ..write(obj.avatarUrl)
-      ..writeByte(13)
-      ..write(obj.recentDevices)
-      ..writeByte(14)
+      ..writeByte(7)
       ..write(obj.accessTokenExpiration)
-      ..writeByte(15)
-      ..write(obj.refreshTokenExpiration)
-      ..writeByte(16)
-      ..write(obj.encryptionKey);
+      ..writeByte(8)
+      ..write(obj.expiresIn)
+      ..writeByte(9)
+      ..write(obj.refreshExpiresIn)
+      ..writeByte(10)
+      ..write(obj.tokenType)
+      ..writeByte(11)
+      ..write(obj.notBeforePolicy)
+      ..writeByte(12)
+      ..write(obj.sessionState)
+      ..writeByte(13)
+      ..write(obj.scope);
   }
 
   @override

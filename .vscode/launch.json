@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Web on Port 59818",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "deviceId": "chrome",
+      "program": "${workspaceFolder}/lib/main.dart",
+      "args": [
+        "--web-port=59818",
+        "--web-hostname=localhost"
+      ]
+    }
+  ]
+}

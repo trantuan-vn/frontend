@@ -1,93 +1,46 @@
+// presentation/pages/splash/splash_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:smartconsultor/core/di/injection_container.dart';
 import 'package:smartconsultor/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:smartconsultor/features/login/presentation/pages/login_page.dart';
 import 'package:smartconsultor/features/splash/presentation/bloc/splash_bloc.dart';
+import 'package:smartconsultor/core/di/injection_container.dart' as di;
 
 class SplashPage extends StatelessWidget {
-  // ignore: constant_identifier_names
-  static const SPLASH_PAGE_ROUTE = '/splash_page';
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<SplashBloc>()..add(SplashLoadData()),
-      child: SplashPageContent(),
-    );
-  }
-}
-
-class SplashPageContent extends StatefulWidget {
-  @override
-  _SplashPageContentState createState() => _SplashPageContentState();
-}
-
-class _SplashPageContentState extends State<SplashPageContent>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    );
-    controller.forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    //bool isCupertinoStyle = DeviceType.isCupertinoStyle;
-    //bool isMobileLayout = DeviceSize.isMobileLayout(context);
-    
-    return Scaffold(
-      body: BlocListener<SplashBloc, SplashState>(
-        listener: (context, state) {
-          if (state is SplashLoadingError) {
-            // Show an error message if login fails
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage),
-                duration: const Duration(seconds: 2),
-              ),
-            );
-          }
-          if (state is SplashDoneLoading) {
-            Navigator.popAndPushNamed(
-              context,
-              state.splashUser==null ? LoginPage.LOGIN_ROUTE : Dashboard.DASHBOARD_ROUTE,
-            );
-          }
-        },
-        child: Center(
-          child: AnimatedBuilder(
-            animation: controller,
-            builder: (context, child) {
-              return Transform.scale(
-                scale: Tween(begin: 0.5, end: 1.5).animate(controller).value,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: SvgPicture.asset(
-                    'images/app_logo.svg',
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
+      create: (context) => di.sl<SplashBloc>()..add(CheckAuthentication()),
+      child: Scaffold(
+        body: BlocListener<SplashBloc, SplashState>(
+          listener: (context, state) {
+            if (state is SplashAuthenticated) {
+              Navigator.pushReplacementNamed(
+                  context, Dashboard.DASHBOARD_ROUTE);
+            } else if (state is SplashUnauthenticated) {
+              Navigator.pushReplacementNamed(context, LoginPage.LOGIN_ROUTE);
+            } else if (state is SplashError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
               );
-            },
+              Navigator.pushReplacementNamed(context, LoginPage.LOGIN_ROUTE);
+            }
+          },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Thêm logo hoặc animation nếu muốn
+                Image.asset('assets/logo.png', width: 100, height: 100),
+                const SizedBox(height: 20),
+                const CircularProgressIndicator(),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }

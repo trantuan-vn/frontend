@@ -1,28 +1,25 @@
 part of 'splash_bloc.dart';
 
-
 abstract class SplashState extends Equatable {
   const SplashState();
-}
-
-class SplashInitial extends SplashState {
-  @override
-  List<Object?> get props => [];
-}
-class SplashLoadingError extends SplashState {
-  final String errorMessage;
-
-  const SplashLoadingError({required this.errorMessage});
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class SplashDoneLoading extends SplashState {
-  late SplashUser? splashUser;
-  
-  SplashDoneLoading({required this.splashUser});
+class SplashInitial extends SplashState {}
+
+class SplashLoading extends SplashState {}
+
+class SplashAuthenticated extends SplashState {}
+
+class SplashUnauthenticated extends SplashState {}
+
+class SplashError extends SplashState {
+  final String message;
+
+  const SplashError({required this.message});
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [message];
 }

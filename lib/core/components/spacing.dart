@@ -11,20 +11,20 @@ const EdgeInsets paddingBottom24 = EdgeInsets.only(bottom: 24);
 
 // Block Spacing
 List<Condition<BoxConstraints?>> blockWidthConstraints = [
-  Condition.equals(name: MOBILE, value: const BoxConstraints(maxWidth: 600)),
-  Condition.equals(name: TABLET, value: const BoxConstraints(maxWidth: 700)),
-  Condition.largerThan(
-      name: TABLET, value: const BoxConstraints(maxWidth: 1280)),
+  const Condition.equals(name: MOBILE, value: BoxConstraints(maxWidth: 600)),
+  const Condition.equals(name: TABLET, value: BoxConstraints(maxWidth: 700)),
+  const Condition.largerThan(
+      name: TABLET, value: BoxConstraints(maxWidth: 1280)),
 ];
 
 EdgeInsets blockPadding(BuildContext context) => ResponsiveValue(
       context,
       conditionalValues: [
-        Condition.smallerThan(
+        const Condition.smallerThan(
             name: TABLET,
-            value: const EdgeInsets.symmetric(horizontal: 15, vertical: 45))
+            value: EdgeInsets.symmetric(horizontal: 15, vertical: 45))
       ],
       defaultValue: const EdgeInsets.symmetric(horizontal: 55, vertical: 80),
-    ).value!;
+    ).value;
 
 const EdgeInsets blockMargin = EdgeInsets.fromLTRB(10, 0, 10, 32);

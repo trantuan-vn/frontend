@@ -21,14 +21,34 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin connectivity_plus, dev.fluttercommunity.plus.connectivity.ConnectivityPlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin device_info_plus, dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new io.crossingthestreams.flutterappauth.FlutterAppauthPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_appauth, io.crossingthestreams.flutterappauth.FlutterAppauthPlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new com.it_nomads.fluttersecurestorage.FlutterSecureStoragePlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_secure_storage, com.it_nomads.fluttersecurestorage.FlutterSecureStoragePlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new com.linusu.flutter_web_auth_2.FlutterWebAuth2Plugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_web_auth_2, com.linusu.flutter_web_auth_2.FlutterWebAuth2Plugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.pathprovider.PathProviderPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin path_provider_android, io.flutter.plugins.pathprovider.PathProviderPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new name.avioli.unilinks.UniLinksPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin uni_links, name.avioli.unilinks.UniLinksPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
