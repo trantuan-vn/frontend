@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:smartconsultor/features/dashboard/presentation/pages/dashboard.dart';
-import 'package:smartconsultor/core/di/injection_container.dart' as di;
+import 'package:smartconsultor/core/di/di.dart' as di;
 
 import '../bloc/login_bloc.dart';
 

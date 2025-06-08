@@ -6,7 +6,7 @@ import 'package:smartconsultor/core/di/dio_service.dart';
 
 import 'di.config.dart';
 
-final getIt = GetIt.instance;
+final sl = GetIt.instance;
 bool _diInitialized = false;
 
 @InjectableInit(
@@ -17,9 +17,5 @@ bool _diInitialized = false;
 void configureDependencies() {
   if (_diInitialized) return;
   _diInitialized = true;
-
-  getIt.init();
-  getIt.registerLazySingleton<DioService>(
-    () => DioService(kIsWeb ? null : const FlutterSecureStorage()),
-  );
+  sl.init();
 }

@@ -14,7 +14,7 @@ abstract class TokenRepository {
   Future<Result<Map<String, dynamic>?>> refreshToken(String refeshToken);
 }
 
-@injectable
+@Singleton()
 class TokenRepositoryImpl implements TokenRepository {
   final ManageTokenInMobileDesktop _manageTokenInMobileDesktop;
   final RefreshTokenWeb _refreshTokenWeb;

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smartconsultor/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:smartconsultor/features/login/presentation/pages/login_page.dart';
 import 'package:smartconsultor/features/splash/presentation/bloc/splash_bloc.dart';
-import 'package:smartconsultor/core/di/injection_container.dart' as di;
+import 'package:smartconsultor/core/di/di.dart' as di;
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);

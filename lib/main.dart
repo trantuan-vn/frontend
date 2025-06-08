@@ -14,6 +14,8 @@ void main() async {
   //setUrlStrategy(PathUrlStrategy());
   usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
+  //final gatewayUrl = await GeoGatewayResolverService.getGatewayUrl();
+  //connectWebSocket(gatewayUrl); // dùng url đã resolve được
   di.configureDependencies();
   runApp(const MainApp());
 }

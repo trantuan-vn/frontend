@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:smartconsultor/features/login/data/repositories/background/token_repository.dart';
 
-@injectable
 class RefreshTokenService {
   Timer? _timer;
   final TokenRepository tokenRepository;

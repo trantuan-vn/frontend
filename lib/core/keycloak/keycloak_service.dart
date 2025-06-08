@@ -7,7 +7,6 @@ import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:http/http.dart' as http;
 import 'package:smartconsultor/core/keycloak/jwt_helper.dart';
-import 'package:smartconsultor/core/utils/fingerprint_service.dart';
 import '../utils/secure_token_storage.dart';
 
 class KeycloakService {
@@ -46,7 +45,7 @@ class KeycloakService {
   }
   Future<void> init() async {
     _appAuth = FlutterAppAuth();
-    _tokenStorage = await SecureTokenStorage.create(FingerprintService());
+    _tokenStorage = await SecureTokenStorage.create();
     _tokenEndpoint = '$issuerUrl/protocol/openid-connect/token';
     _userInfoEndpoint = '$issuerUrl/protocol/openid-connect/userinfo';
     _authorization_endpoint = '$issuerUrl/protocol/openid-connect/auth';
@@ -100,11 +99,7 @@ class KeycloakService {
       if (_tokens == null || _tokens!['id_token'] == null) {
         return;
       }
-      final createdAt = JwtHelper.getIssuedAt(_tokens?['id_token']) as int;
-      final expiresIn = _tokens?['expires_in'] as int;
-      final expiry =
-          DateTime.fromMillisecondsSinceEpoch(createdAt + expiresIn * 1000);
-      if (DateTime.now().isAfter(expiry)) {
+      if (DateTime.now().isAfter(JwtHelper.getExpDate(_tokens?['id_token']))) {
         await _clearTokens();
       }
       _scheduleTokenRefresh();
@@ -450,7 +445,7 @@ class KeycloakService {
     if (aud is List && !aud.contains(clientId)) {
       throw Exception("Invalid audience.");
     }
-    final exp = JwtHelper.getExpiration(idToken);
+    final exp = JwtHelper.getExpDate(idToken);
     if (exp == null || DateTime.now().isAfter(exp)) {
       throw Exception("ID token expired.");
     }

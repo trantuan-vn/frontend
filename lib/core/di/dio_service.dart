@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart'; // kIsWeb
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 
 typedef OnTokenExpired = void Function();
 
+@Singleton()
 class DioService {
   final Dio _dio;
   final FlutterSecureStorage? _secureStorage;
@@ -20,7 +22,7 @@ class DioService {
     this.maxRetries = 3,
     this.retryDelay = const Duration(seconds: 2),
   }) : _dio = Dio(BaseOptions(
-          baseUrl: 'https://api.example.com',
+          baseUrl: 'https://smartconsultor.com',
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 20),
           headers: {

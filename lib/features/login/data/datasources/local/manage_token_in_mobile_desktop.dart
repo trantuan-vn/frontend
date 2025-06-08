@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:smartconsultor/core/log/log_manager.dart';
 
 abstract class ManageTokenInMobileDesktop {
   Future<void> save(String key, Map<String, dynamic> tokens);
